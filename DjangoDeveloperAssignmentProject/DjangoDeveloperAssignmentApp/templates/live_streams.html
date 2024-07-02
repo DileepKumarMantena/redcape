@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Stream</title>
+    <link rel="stylesheet" href="https://vjs.zencdn.net/7.11.4/video-js.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Use min-height to ensure the page covers at least the viewport height */
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px; /* Add margin at the bottom to separate from the button */
+        }
+        .btn {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            background-color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 20px; /* Add margin between video and button */
+        }
+        .comment-form {
+            margin-top: 20px; /* Add margin between video and comment form */
+            text-align: left;
+        }
+        .comment-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .comment-form textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; /* Allow vertical resizing */
+        }
+        .btn-container {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Stream</h1>
+        <video id="live-stream" class="video-js vjs-default-skin" controls autoplay width="640" height="360">
+            <source src="{{ stream_url }}" type="application/x-mpegURL">
+        </video>
+        <form class="comment-form" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="comment">Write your comment:</label>
+                <textarea id="comment" name="comment" rows="4" placeholder="Enter your comment here..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    </div>
+    <div class="btn-container">
+        <a href="{% url 'list_live_streams' %}" class="btn">Back to List</a>
+    </div>
+</body>
+</html>

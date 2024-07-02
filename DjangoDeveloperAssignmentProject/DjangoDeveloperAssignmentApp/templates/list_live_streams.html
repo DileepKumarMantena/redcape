@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Streams</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .add-button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .add-button-container .btn {
+            margin-bottom: 20px;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Live Streams</h1>
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Stream URL</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for live_stream in live_streams %}
+                    <tr>
+                        <td>{{ live_stream.title }}</td>
+                        <td>{{ live_stream.description }}</td>
+                        <td><a href="{{ live_stream.stream_url }}" target="_blank">Watch</a></td>
+                        <td>
+                            <a href="{% url 'view_live_stream' live_stream.id %}" class="btn btn-info btn-sm">View</a>
+                            <a href="{% url 'delete_live_stream' live_stream.id %}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="add-button-container">
+            <a href="{% url 'add_live_stream' %}" class="btn btn-primary">Add</a>
+            <br></br>
+            <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
+        </div>
+    </div>
+</body>
+</html>
